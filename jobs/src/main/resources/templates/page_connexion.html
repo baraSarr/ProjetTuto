@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Connexion</title>
+		<link rel="stylesheet" href="style/home.css" />
+ 		<link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+ 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">	
+ 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+ 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+ 		<style type="text/css">
+ 			form{
+ 				margin:1cm;
+ 				padding:10px;
+ 				width:800px;
+ 				border:1px black solid;
+ 				box-shadow: 0px 0px 10px 0px #000;
+ 			}
+ 			#con{
+ 				height:550px;
+ 			}
+ 		</style>
+	</head>
+	<body>
+	<!-- Menu -->
+		<header th:insert="fragments/menu.html :: header"> </header>
+		<div class="alert alert-primary" role="alert" th:text="${echec}" th:if="${echec}"></div>
+	<!-- Formulaire -->
+	<div class="container" id="con">
+		<form method="post" th:action="@{/connexion/authentifier}" th:object="${utilisateur}">
+		<legend>Connexion</legend>
+				<div class="form-group">
+					<label for="mailInput">Email</label> 
+					<input
+						type="text" th:field="*{login}" class="form-control" id="mailInput"
+						aria-describedby="mailHelp" placeholder="Saisir l'adresse email"> <small
+						id="mailHelp" class="form-text text-muted">Merci d'écrire votre adresse email</small>
+			</div>
+			<div class="form-group">
+					<label for="passwordInput">Mot de passe</label> 
+					<input
+						type="password" th:field="*{password}" class="form-control" id="passwordInput"
+						placeholder="Mot de passe">
+			</div>
+			<div>
+				
+			</div>
+			<button type="submit" class="btn btn-primary">Se connecter</button>
+			
+		</form>
+	</div>
+		<!-- Footer -->
+		<footer th:insert="fragments/menu.html :: footer"> </footer>
+	</body>
+</html>

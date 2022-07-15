@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Inscription</title>
+		<link rel="stylesheet" href="/assets/css/home.css" />
+ 		<link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+ 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">	
+ 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+ 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+ 		<style type="text/css">
+ 			form{
+ 				margin:1cm;
+ 				padding:10px;
+ 				width:800px;
+ 				border:1px black solid;
+ 				box-shadow: 0px 0px 10px 0px #000;
+ 			}
+ 			.erreur {
+    color: red;
+    font-style: italic;
+}
+ 		</style>
+	</head>
+	<body>
+		<!-- debut menu -->
+		<header th:insert="fragments/menu.html :: header"> </header>
+		
+	<!-- debut formulaire -->
+	<div class="container">
+	<form method="post" th:action="@{/inscription}" th:object="${utilisateur}" enctype="multipart/form-data" class="form">
+		<h2>Formulaire d'inscription</h2>
+			<div class="form-group">
+				<label for="firstNameInput">Prénom</label>
+				<input type="text" th:field="*{prenom}" class="form-control" id="firstNameInput" placeholder="Saisir le prénom">
+				<span class="erreur" th:if="${#fields.hasErrors('prenom')}" th:errors="*{prenom}">Full name error</span>
+			</div>
+			<div class="form-group">
+				<label for="lastNameInput">nom</label> 
+				<input type="text" th:field="*{nom}" class="form-control" id="lastNameInput" placeholder="Saisir le nom">
+				<span class="erreur" th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}">Full name error</span> 
+			</div>
+			<div class="form-group">
+				<label for="phoneInput">Téléphone</label> 
+				<input type="text" th:field="*{numTel}" class="form-control" id="phoneInput" placeholder="Saisir le numéro de téléphone">
+				<span class="erreur" th:if="${#fields.hasErrors('numTel')}" th:errors="*{numTel}">Full name error</span> 
+			</div>
+			<div class="form-group">
+				<label for="adressInput">adresse</label> 
+				<input type="text" th:field="*{adresse}" class="form-control" id="adressInput" placeholder="Saisir l\'adresse">
+				<span class="erreur" th:if="${#fields.hasErrors('adresse')}" th:errors="*{adresse}">Full name error</span> 
+			</div>
+			<div class="form-group">
+				<label for="mailInput">Email</label> 
+				<input type="text" th:field="*{login}" class="form-control" id="mailInput" placeholder="Saisir l'adresse email">
+				<span class="erreur" th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Full name error</span>
+				<span class="erreur" th:if="${erreur_login}" th:text="${erreur_login}"></span>
+			</div>
+			<div class="form-group">
+				<label for="passwordInput">Mot de passe</label> 
+				<input type="password" th:field="*{password}" class="form-control" id="passwordInput" placeholder="Mot de passe">
+				<span class="erreur" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Full name error</span>
+				
+			</div>
+			<div class="form-group">
+				<label>Insérer une photo de profil (Facultatif)</label>
+				<input type="file" name="image" accept="image/png, image/jpeg" />
+				<span class="erreur" th:if="${erreur_file}" th:text="${erreur_file}"></span>
+			</div>
+			<button type="submit" class="btn btn-primary">Créer</button>
+	</form>
+	</div>
+	<!-- Footer -->
+	<footer th:insert="fragments/menu.html :: footer"> </footer>
+	</body>
+</html>

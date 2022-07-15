@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le : lun. 27 juin 2022 à 23:47
+-- Généré le : ven. 15 juil. 2022 à 21:43
 -- Version du serveur :  10.4.19-MariaDB-log
 -- Version de PHP : 8.0.6
 
@@ -38,7 +38,11 @@ CREATE TABLE `competences` (
 
 INSERT INTO `competences` (`id_competence`, `nom`) VALUES
 (1, 'Langage C'),
-(2, 'analyse de donnees');
+(2, 'analyse de donnees'),
+(3, 'Javascript'),
+(4, 'Bootstrap'),
+(5, 'Python'),
+(6, 'Comptabilité');
 
 -- --------------------------------------------------------
 
@@ -77,7 +81,7 @@ CREATE TABLE `experiences` (
   `poste_occupe` varchar(200) NOT NULL,
   `date_debut` varchar(100) NOT NULL,
   `date_fin` varchar(100) NOT NULL,
-  `description` varchar(500) DEFAULT NULL,
+  `description` varchar(500) DEFAULT 'aucune',
   `id_user` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -86,8 +90,7 @@ CREATE TABLE `experiences` (
 --
 
 INSERT INTO `experiences` (`id_experience`, `nom_societe`, `poste_occupe`, `date_debut`, `date_fin`, `description`, `id_user`) VALUES
-(1, 'ABC', 'sgt', '2077', '2189', 'lol', 1),
-(2, 'DEF', 'col', '2020', '2050', 'lmao', 1);
+(3, 'ESMT', 'stagiaire', '10-03-2018', '24-10-2020', '', 6);
 
 -- --------------------------------------------------------
 
@@ -97,13 +100,19 @@ INSERT INTO `experiences` (`id_experience`, `nom_societe`, `poste_occupe`, `date
 
 CREATE TABLE `formations` (
   `id_formation` int(11) NOT NULL,
-  `type` varchar(100) NOT NULL,
   `intitule` varchar(150) NOT NULL,
   `nom_ecole` varchar(100) NOT NULL,
   `annee_debut` varchar(10) NOT NULL,
   `annee_fin` varchar(10) NOT NULL,
   `id_user` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `formations`
+--
+
+INSERT INTO `formations` (`id_formation`, `intitule`, `nom_ecole`, `annee_debut`, `annee_fin`, `id_user`) VALUES
+(1, 'LPTI', 'ESMT', '2019', '2022', 6);
 
 -- --------------------------------------------------------
 
@@ -117,14 +126,6 @@ CREATE TABLE `notifications` (
   `message` varchar(255) NOT NULL,
   `id_destinataire` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Déchargement des données de la table `notifications`
---
-
-INSERT INTO `notifications` (`id_notification`, `objet`, `message`, `id_destinataire`) VALUES
-(1, 'test', 'ceci est un test', 1),
-(2, 'test2', 'ceci est un autre test', 1);
 
 -- --------------------------------------------------------
 
@@ -159,10 +160,10 @@ CREATE TABLE `posseder` (
 --
 
 INSERT INTO `posseder` (`id_user`, `id_competence`) VALUES
-(1, 1),
-(1, 2),
-(2, 1),
-(3, 1);
+(6, 1),
+(6, 2),
+(6, 5),
+(6, 4);
 
 -- --------------------------------------------------------
 
@@ -174,6 +175,36 @@ CREATE TABLE `posttuler` (
   `id_user` int(11) NOT NULL,
   `id_offre` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `postuler`
+--
+
+CREATE TABLE `postuler` (
+  `id_offre` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `roles`
+--
+
+CREATE TABLE `roles` (
+  `id_role` int(11) NOT NULL,
+  `nom` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `roles`
+--
+
+INSERT INTO `roles` (`id_role`, `nom`) VALUES
+(1, 'ROLE_ADMINISTRATEUR'),
+(2, 'ROLE_UTILISATEUR');
 
 -- --------------------------------------------------------
 
@@ -199,22 +230,24 @@ CREATE TABLE `utilisateurs` (
   `id_user` int(11) NOT NULL,
   `prenom` varchar(200) NOT NULL,
   `nom` varchar(150) NOT NULL,
-  `profil` varchar(30) NOT NULL,
   `login` varchar(50) NOT NULL,
-  `password` varchar(20) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `adresse` varchar(500) NOT NULL,
   `num_tel` varchar(20) NOT NULL,
-  `photo_profil` varchar(100) DEFAULT NULL
+  `photo_profil` varchar(100) DEFAULT NULL,
+  `token` varchar(64) DEFAULT NULL,
+  `id_role` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `utilisateurs`
 --
 
-INSERT INTO `utilisateurs` (`id_user`, `prenom`, `nom`, `profil`, `login`, `password`, `adresse`, `num_tel`, `photo_profil`) VALUES
-(1, 'Bara', 'SARR', 'utilisateur', 'sarrbara07@gmail.com', 'passer', 'okm 355 B', '78 113 85 36', NULL),
-(2, 'Souleymane', 'Kamara', 'utilisateur', 'julemo70@yahoo.com', 'passer', 'unknown', '911', NULL),
-(3, 'Cheikh', 'Diabakhate', 'utilisateur', 'hentaidiabakh@yahoo.fr', 'passer', 'mermoz cote poubelle municipale', '911', NULL);
+INSERT INTO `utilisateurs` (`id_user`, `prenom`, `nom`, `login`, `password`, `adresse`, `num_tel`, `photo_profil`, `token`, `id_role`) VALUES
+(6, 'bara', 'Sarr', 'sarrbara07@gmail.com', '$2a$10$/3VwC8J/XdaCQraLoU0UtuRp0q5tiKuRALCigDgU3jJ5CTEW9uN56', 'tt', '1234', NULL, NULL, 2),
+(25, 'john', 'Doe', 'johnDoe@gmail.com', '$2a$10$SQz7HSMAY.tORcErviJPJec8midO84KZj/5GgfzHtTzWUoP7.nSfW', 'tt', '1234', 'VoicemailFile.png', NULL, 2),
+(26, 'test', 'test', 'test@test.sn', '$2a$10$/MWdGKAor9RxCjiGlaN7n.16WMVupyiYetky2284i4lMp9pW88142', 'tt', '1234', '', NULL, 2),
+(27, 'jule', 'kamara', 'jule@gmail.com', '$2a$10$3e7aO1olWv.Q13Jr/Z5QnOYaMXsw./12meUleNCa9SsRd6WK8OrXS', 'nowhere', '77 123 45 67', '', NULL, 2);
 
 --
 -- Index pour les tables déchargées
@@ -285,6 +318,19 @@ ALTER TABLE `posttuler`
   ADD KEY `id_user` (`id_user`);
 
 --
+-- Index pour la table `postuler`
+--
+ALTER TABLE `postuler`
+  ADD KEY `FKk36kf0uowhblsi8oljakbpjf` (`id_user`),
+  ADD KEY `FKvo8j8tavn0hdx2m4tg6xvu4f` (`id_offre`);
+
+--
+-- Index pour la table `roles`
+--
+ALTER TABLE `roles`
+  ADD PRIMARY KEY (`id_role`);
+
+--
 -- Index pour la table `societes`
 --
 ALTER TABLE `societes`
@@ -294,7 +340,9 @@ ALTER TABLE `societes`
 -- Index pour la table `utilisateurs`
 --
 ALTER TABLE `utilisateurs`
-  ADD PRIMARY KEY (`id_user`);
+  ADD PRIMARY KEY (`id_user`),
+  ADD UNIQUE KEY `UKwxanxhwyll18224bh3y1hl54` (`login`),
+  ADD KEY `id_role` (`id_role`);
 
 --
 -- AUTO_INCREMENT pour les tables déchargées
@@ -304,7 +352,7 @@ ALTER TABLE `utilisateurs`
 -- AUTO_INCREMENT pour la table `competences`
 --
 ALTER TABLE `competences`
-  MODIFY `id_competence` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_competence` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT pour la table `contrats`
@@ -316,13 +364,13 @@ ALTER TABLE `contrats`
 -- AUTO_INCREMENT pour la table `experiences`
 --
 ALTER TABLE `experiences`
-  MODIFY `id_experience` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_experience` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT pour la table `formations`
 --
 ALTER TABLE `formations`
-  MODIFY `id_formation` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_formation` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT pour la table `notifications`
@@ -337,6 +385,12 @@ ALTER TABLE `offres`
   MODIFY `id_offre` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT pour la table `roles`
+--
+ALTER TABLE `roles`
+  MODIFY `id_role` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT pour la table `societes`
 --
 ALTER TABLE `societes`
@@ -346,7 +400,7 @@ ALTER TABLE `societes`
 -- AUTO_INCREMENT pour la table `utilisateurs`
 --
 ALTER TABLE `utilisateurs`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- Contraintes pour les tables déchargées
@@ -404,6 +458,12 @@ ALTER TABLE `posseder`
 ALTER TABLE `posttuler`
   ADD CONSTRAINT `posttuler_ibfk_1` FOREIGN KEY (`id_offre`) REFERENCES `offres` (`id_offre`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `posttuler_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `utilisateurs` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `utilisateurs`
+--
+ALTER TABLE `utilisateurs`
+  ADD CONSTRAINT `utilisateurs_ibfk_1` FOREIGN KEY (`id_role`) REFERENCES `roles` (`id_role`) ON DELETE SET NULL ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

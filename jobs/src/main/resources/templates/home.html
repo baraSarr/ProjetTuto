@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Accueil</title>
+<link rel="stylesheet" href="/assets/css/home.css" />
+ <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">	
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+ <style type="text/css">
+ #first{
+  background: url("image/image_background.jpg"); 
+  width: 100%;
+height: 80vh;
+background-size: cover;
+  position: relative;
+ }
+ </style>
+</head>
+<body>
+<!-- Menu -->
+<header th:insert="fragments/menu.html :: header"> </header>
+<section >
+<div class="container" id="first" >
+<div class="row">
+<div>
+<h1 id="h1">À la recherche d'un emploi ou <br> d'une orientation ?</h1>
+</div>
+
+</div>
+</div>
+<div class="container">
+<h1 id="titre">Trouver un emploi ou offre d'orientation au Sénégal</h1>
+</div>
+<div class="container shadow-lg p-3 mb-5 bg-info rounded" id="box">		
+<div class="container" id="box1">
+<form>
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <label for="inputEmail4" id="mot">Mot-cles</label>
+      <input type="email" class="form-control" id="inputEmail4" placeholder="Mot-cles">
+    </div>
+    <div class="form-group col-md-4">
+      <label for="inputPassword4" id="mot">Region</label>
+      <input type="password" class="form-control" id="inputPassword4" placeholder="Region">
+    </div>
+    <div class="form-group col-md-4" id="btn">
+     <button type="button" class="btn btn-danger">Rechercher</button>
+    </div>
+  </div>
+</form>
+</div>
+</div>
+<div class="wrapper">
+<a href="#" id="five" >Êtes-vous un employeur? <br>
+Publiez votre offre d'emploi</a>
+<a href="#" id="five">Recherchez-vous de l'emploi? <br>
+Consulter nos offres d'emploi</a>
+<a href="#" id="five">Êtes-vous a la recherche d'orientation? <br>
+Consulter nos offrrs d'orientation</a>
+</div>
+<div class="container" id="div">
+<h1>
+Nos dernières offres 
+</h1>
+</div>
+<div class="wrapper">
+<div class="card bg-light mb-3" style="max-width: 18rem;">
+  <div class="card-header">Header</div>
+  <div class="card-body">
+    <h5 class="card-title">Light card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  </div>
+</div>
+<div class="card bg-light mb-3" style="max-width: 18rem;">
+  <div class="card-header">Header</div>
+  <div class="card-body">
+    <h5 class="card-title">Light card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  </div>
+</div>
+<div class="card bg-light mb-3" style="max-width: 18rem;">
+  <div class="card-header">Header</div>
+  <div class="card-body">
+    <h5 class="card-title">Light card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  </div>
+</div>
+</div>
+<div > 
+</div>
+</section>
+
+<!-- footer -->
+<footer th:insert="fragments/menu.html :: footer"> </footer>
+</body>
+</html>
